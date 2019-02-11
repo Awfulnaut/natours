@@ -1,0 +1,39 @@
+@mixin clearfix {
+	&::after {
+		content: ""; // This always needs to be set on pseudoelements, and since 
+					 // we don't want to see this element, we set content to empty
+		display: table; //clearfix for floats should usually be displayed as a table
+		clear: both;
+	}
+}
+
+@mixin absCenter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+// Media query manager
+/*
+0 - 600px : 	(sm) Phone
+600 - 900px:	(md) Tablet portrait
+900 - 1200px:	(lg) Tablet landscape
+[1200 - 1900] is where our normal styles apply
+1800px + :		(xl) Big desktop
+*/
+
+@mixin respond($breakpoint) {
+	@if $breakpoint == sm {
+		@media only screen and (max-width: 37.5em) { @content }; // 600px
+	}
+	@if $breakpoint == md {
+		@media only screen and (max-width: 56.25em) { @content }; // 900px
+	}
+	@if $breakpoint == lg {
+		@media only screen and (max-width: 75em) { @content }; // 1200px
+	}
+	@if $breakpoint == xl {
+		@media only screen and (max-width: 112.5em) { @content }; // 1800px
+	}
+}
